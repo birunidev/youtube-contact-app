@@ -32,6 +32,14 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
     let data = [...contacts];
+
+    if (formData.name === "") {
+      return false;
+    }
+    if (formData.telp === "") {
+      return false;
+    }
+
     if (isUpdate.status) {
       data.forEach((contact) => {
         if (contact.id === isUpdate.id) {
@@ -68,40 +76,43 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="px-3 py-3 font-weight-bold">My Contact List</h1>
-      <form onSubmit={handleSubmit} className="px-3 py-4">
-        <div className="form-group">
-          <label htmlFor="">Name</label>
-          <input
-            type="text"
-            onChange={handleChange}
-            className="form-control"
-            value={formData.name}
-            name="name"
-          />
-        </div>
-        <div className="form-group mt-3">
-          <label htmlFor="">No. Telp</label>
-          <input
-            type="text"
-            onChange={handleChange}
-            value={formData.telp}
-            className="form-control"
-            name="telp"
-          />
-        </div>
-        <div>
-          <button type="submit" className="btn btn-primary w-100 mt-3">
-            Save
-          </button>
-        </div>
-      </form>
-
-      <List
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        data={contacts}
-      />
+      <div className="fixed-top bg-white pb-3 mx-auto" style={{ width: 400 }}>
+        <h1 className="px-3 py-3 font-weight-bold">My Contact List</h1>
+        <form onSubmit={handleSubmit} className="px-3 py-4">
+          <div className="form-group">
+            <label htmlFor="">Name</label>
+            <input
+              type="text"
+              onChange={handleChange}
+              className="form-control"
+              value={formData.name}
+              name="name"
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="">No. Telp</label>
+            <input
+              type="text"
+              onChange={handleChange}
+              value={formData.telp}
+              className="form-control"
+              name="telp"
+            />
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary w-100 mt-3">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+      <div style={{ marginTop: 350 }}>
+        <List
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          data={contacts}
+        />
+      </div>
     </div>
   );
 }
