@@ -4,7 +4,7 @@ import List from "./List";
 function App() {
   return (
     <div className="App">
-      <h1 className="px-3 py-3 font-weight-bold">My Contact List</h1>
+      <h1 className="px-3 py-3">My Contact List</h1>
 
       <form className="px-3 py-4">
         <div className="form-group">
