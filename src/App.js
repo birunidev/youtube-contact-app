@@ -1,27 +1,28 @@
 import "./App.css";
 import List from "./List";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { uid } from "uid";
+import axios from "axios";
+
+let api = axios.create({ baseURL: "http://localhost:3000" });
 
 function App() {
-  const [contacts, setContacts] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      telp: "08813452521",
-    },
-    {
-      id: 2,
-      name: "Alex Picker",
-      telp: "08815646413",
-    },
-  ]);
+  const [contacts, setContacts] = useState([]);
+
   const [isUpdate, setIsUpdate] = useState({ id: null, status: false });
 
   const [formData, setFormData] = useState({
     name: "",
     telp: "",
   });
+
+  useEffect(() => {
+    // fetch data dsini dan set contact
+
+    api.get("/contacts").then((res) => {
+      setContacts(res.data);
+    });
+  }, []);
 
   function handleChange(e) {
     let newFormState = { ...formData };
@@ -47,11 +48,27 @@ function App() {
           contact.telp = formData.telp;
         }
       });
+      api
+        .put("/contacts/" + isUpdate.id, {
+          id: isUpdate.id,
+          name: formData.name,
+          telp: formData.telp,
+        })
+        .then(() => {
+          alert("Data berhasil di update");
+        });
+      // update berdasarkan id
     } else {
-      data.push({
+      let toSave = {
         id: uid(),
         name: formData.name,
         telp: formData.telp,
+      };
+      data.push(toSave);
+
+      // menambahkan data
+      api.post("/contacts", toSave).then(() => {
+        alert("Data berhasil ditambah");
       });
     }
     setContacts(data);
@@ -71,6 +88,9 @@ function App() {
   function handleDelete(id) {
     let data = [...contacts];
     let filteredData = data.filter((contact) => contact.id !== id);
+
+    // menghapus data
+    api.delete("/contacts/" + id).then(() => alert("Data berhasil dihapus"));
     setContacts(filteredData);
   }
 

@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "telp": "08813452521"
+    },
+    {
+      "id": 2,
+      "name": "Alex Picker",
+      "telp": "08815646413"
+    },
+    {
+      "id": "6c5a74fe3ac",
+      "name": "Muhammad Al Biruni",
+      "telp": "08815646423"
+    }
+  ]
+}
